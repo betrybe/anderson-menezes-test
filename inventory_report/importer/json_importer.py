@@ -2,18 +2,19 @@ import sys
 import json
 from typing import List
 from inventory_report.importer.importer import Importer
-from inventory_report.exceptions.extension_exception import ExtensionException
 
 
 class JsonImporter(Importer):
 
-    def import_data(self, file_name: str) -> List:
-        if not self.is_correct_file_extension(file_name, '.json'):
-            raise ExtensionException('.json')
-        inventory_data = self.get_inventory_list_from_file(file_name)
+    @staticmethod
+    def import_data(file_name: str) -> List:
+        if not JsonImporter.is_correct_file_extension(file_name, '.json'):
+            raise ValueError('Arquivo inválido')
+        inventory_data = JsonImporter.get_inventory_list_from_file(file_name)
         return inventory_data
 
-    def get_inventory_list_from_file(self, file_name: str) -> List:
+    @staticmethod
+    def get_inventory_list_from_file(file_name: str) -> List:
         try:
             with open(file_name) as f:
                 inventory_data = json.loads(f.read())

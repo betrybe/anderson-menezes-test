@@ -26,7 +26,7 @@ class SimpleReport():
     @staticmethod
     def calculate_closest_expiration_date(inventory: List) -> str:
         today = datetime.today()
-        closest_expiration = datetime.today()
+        closest_expiration: datetime = None
         first_iteration = True
         for record in inventory:
             if first_iteration:
