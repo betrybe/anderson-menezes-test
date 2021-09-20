@@ -20,5 +20,6 @@ class Importer(ABC):
             return False
         return True
 
-    def get_file_extension(self, file_name: str) -> str:
+    @staticmethod
+    def get_file_extension(file_name: str) -> str:
         return pathlib.Path(file_name).suffix
