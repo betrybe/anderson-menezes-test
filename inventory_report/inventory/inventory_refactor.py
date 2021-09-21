@@ -1,26 +1,24 @@
 from collections.abc import Iterable
-from typing import List
-from inventory_report.inventory.inventory_iterator import InventoryIterator
 from inventory_report.importer.importer import Importer
 from inventory_report.reports.simple_report import SimpleReport
 from inventory_report.reports.complete_report import CompleteReport
+from inventory_report.inventory.inventory_iterator import InventoryIterator
 
 
 class InventoryRefactor(Iterable):
 
-    _data: List = None
-
     def __init__(self, importer: Importer) -> None:
-        self._importer = importer
+        self.importer = importer
+        self.data = []
 
     def __iter__(self) -> InventoryIterator:
-        return InventoryIterator(self._data)
+        return InventoryIterator(self.data)
 
     def import_data(self, file: str, report_type: str) -> str:
-        self._data.append(self._importer.import_data(file))
+        self.data.extend(self.importer.import_data(file))
         if report_type == 'simples':
-            return SimpleReport.generate(self._data)
+            return SimpleReport.generate(self.data)
         elif report_type == 'completo':
-            return CompleteReport.generate(self._data)
+            return CompleteReport.generate(self.data)
         else:
             raise ValueError('Wrong report type.')

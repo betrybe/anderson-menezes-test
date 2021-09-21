@@ -1,11 +1,11 @@
 from collections.abc import Iterator
-from inventory_report.inventory.inventory_refactor import InventoryRefactor
+from typing import List
 
 
 class InventoryIterator(Iterator):
     _position: int = None
 
-    def __init__(self, collection: InventoryRefactor) -> None:
+    def __init__(self, collection: List) -> None:
         self._collection = collection
         self._position = 0
 
